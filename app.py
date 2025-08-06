@@ -7,15 +7,13 @@ app = Flask(__name__)
 # This allows your web page to talk to this server
 CORS(app)
 
-# --- 2. CONFIGURE YOUR GEMINI API KEY ---
 try:
-    # Replace "YOUR_API_KEY_HERE" with your actual key
-    genai.configure(api_key="AIzaSyDdAX_59Xw6_gkNv1Yhnef-ehIqb_pub2o")
+    genai.configure(api_key="gemini api key")
 except Exception as e:
     print(f"CRITICAL ERROR: Could not configure Gemini API. {e}")
 
 
-# --- 3. DEFINE THE AI MODEL'S PERSONALITY (System Prompt) ---
+# ---  DEFINE THE AI MODEL'S PERSONALITY (System Prompt) ---
 SYSTEM_PROMPT = """
 You are MindCompanion, a gentle and supportive journaling guide. The user is interacting with you through the chat interface of their digital journal.
 Your goals are:
@@ -26,7 +24,7 @@ Your goals are:
 5.  Keep your responses thoughtful but not excessively long.
 """
 
-# --- 4. CREATE THE API ENDPOINT FOR CHAT ---
+# ---  CREATE THE API ENDPOINT FOR CHAT ---
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.get_json()
@@ -52,6 +50,6 @@ def chat():
         print(f"ERROR calling Gemini API: {e}")
         return jsonify({"error": "Failed to get response from AI"}), 500
 
-# --- 5. RUN THE FLASK SERVER ---
+# ---  RUN THE FLASK SERVER ---
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
